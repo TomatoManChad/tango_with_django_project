@@ -3,7 +3,8 @@ from __future__ import unicode_literals
 
 from django.shortcuts import render
 from django.http import HttpResponse
-from rango.models import Category, Page
+from rango.models import Category
+from rango.models import Page
 # Create your views here.
 def index(request):
     # Query the database for a list of ALL categories currently stored.
@@ -28,7 +29,7 @@ def about(request):
 
 def show_category(request, category_name_slug):
     #create a context dictionary which we can pass to template rendering engine
-    context_dict={}
+    context_dict= {}
 
     try:
         # Can we find a category name slug with the given name?
