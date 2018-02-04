@@ -65,6 +65,7 @@ def show_category(request, category_name_slug):
         # Go render the response and return it to the client
     return render(request, 'rango/category.html', context_dict)
 
+@login_required
 def add_category(request):
     form = CategoryForm()
 
@@ -85,6 +86,7 @@ def add_category(request):
 
     return  render(request, 'rango/add_category.html', {'form': form})
 
+@login_required
 def add_page(request, category_name_slug):
     try:
          category = Category.objects.get(slug=category_name_slug)
@@ -105,7 +107,7 @@ def add_page(request, category_name_slug):
                 print(form.errors)
 
     context_dict = {'form':form, 'category': category}
-    return render(request, 'rango/add_page.html', context_dict)
+    return render(request, 'rango/add_page.html', context_dict,)
 
 def register(request):
     # A boolean value for telling the template whether the registration
@@ -209,7 +211,7 @@ def user_login(request):
 
 @login_required
 def restricted(request):
-    return HttpResponse("Since your're logging in, you can see this text!")
+    return render(request, 'rango/restricted.html', {})
 
 # Use the login_required decorator to ensure only those logged in can
 # access the view
