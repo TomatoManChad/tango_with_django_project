@@ -45,9 +45,15 @@ def about(request):
     if request.session.test_cookie_worked():
         print("TEST COOKIE WORKED!")
         request.session.delete_test_cookie()
-    context_about = {'boldmessage': "The king of cats"}
+    context_dict = {'boldmessage': "The king of cats"}
+
+    visitor_cookie_handler(request)
+    context_dict['visits'] = request.session['visits']
+
+    response = render (request,'rango/about.html', context=context_dict)
     # return HttpResponse("Rango says here is the about page!<br/> <a href='/rango/'>Index</a>")
-    return render(request, 'rango/about.html', context=context_about)
+    #return render(request, 'rango/about.html', context=context_dict)
+    return response
 
 def show_category(request, category_name_slug):
     #create a context dictionary which we can pass to template rendering engine
